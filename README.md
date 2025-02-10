@@ -1638,6 +1638,233 @@ When using the internet, it's important to keep your data secure. Here are some 
 
 The internet is a vast network that allows devices to communicate and share data across the globe. It works through a combination of servers, routers, protocols, and other technologies that enable the exchange of information. Whether you're browsing websites, sending emails, or streaming videos, the internet makes it all possible through a well-organized system of devices and communication protocols.
 
+
+15) What is a PIPE command?
+"ANS":- A **pipe command (`|`)** in computing is used to pass the output of one command as input to another command. It is commonly used in Unix/Linux shell scripting and Windows PowerShell to create efficient workflows.
+
+### **How It Works:**
+- The pipe symbol (`|`) takes the standard output (stdout) of one command and feeds it as standard input (stdin) to another.
+- This allows for **chaining multiple commands together** to process data without using intermediate files.
+
+### **Example in Linux:**
+```sh
+ls -l | grep "txt"
+```
+- `ls -l`: Lists files in long format.
+- `grep "txt"`: Filters the list to show only files containing "txt" in their name.
+
+### **Example in Windows PowerShell:**
+```powershell
+Get-Process | Sort-Object CPU -Descending
+```
+- `Get-Process`: Retrieves a list of running processes.
+- `Sort-Object CPU -Descending`: Sorts the list by CPU usage in descending order.
+
+### **Benefits of Using Pipes:**
+✅ **Efficiency** – Reduces the need for temporary files.  
+✅ **Readability** – Simplifies complex workflows.  
+✅ **Modularity** – Allows you to use simple, focused commands together.  
+
+How is it work what is this for? :-
+"ANS":- ### **How a Pipe Command (`|`) Works**
+A **pipe command (`|`)** works by connecting the output of one command (stdout) directly as the input (stdin) for another command. This enables multiple commands to work together seamlessly, forming a processing pipeline.
+
+### **How It Works Internally:**
+1. The **first command** generates output.
+2. The **pipe (`|`)** redirects this output to the **second command** as its input.
+3. The **second command** processes the input and produces its own output (which can be piped further).
+
+### **What Is It Used For?**
+A pipe is used to **chain commands together**, making operations **more efficient** and reducing the need for temporary files or manual intervention.
+
+### **Example Uses**
+#### **1. Filtering Output**
+```sh
+ls -l | grep "log"
+```
+- `ls -l`: Lists files in long format.
+- `grep "log"`: Filters only files with "log" in their name.
+
+#### **2. Counting Lines in a File**
+```sh
+cat file.txt | wc -l
+```
+- `cat file.txt`: Displays file content.
+- `wc -l`: Counts the number of lines in the file.
+
+#### **3. Sorting and Displaying Top Entries**
+```sh
+ps aux | sort -k3 -nr | head -5
+```
+- `ps aux`: Lists running processes.
+- `sort -k3 -nr`: Sorts processes by CPU usage.
+- `head -5`: Shows the top 5 CPU-consuming processes.
+
+### **Why Use Pipes?**
+✅ **Efficiency** – Avoids creating temporary files.  
+✅ **Modularity** – Combines simple commands for complex tasks.  
+✅ **Automation** – Helps in scripting and workflow automation.  
+
+And where we use this command and how is it help us:- 
+"ANS":- ### **Where Do We Use Pipe (`|`) Commands?**
+Pipe commands are commonly used in **Linux/Unix**, **Windows PowerShell**, and **command-line environments** for **data processing, automation, and system administration**. They help in making tasks **faster and more efficient** by allowing one command to process data and pass it directly to another without saving intermediate files.
+
+---
+
+## **🔹 Where and How It Helps Us?**
+
+### **1️⃣ In Linux/Unix Command Line**
+📌 **Use Case:** Searching for specific files  
+```sh
+ls -l | grep "report"
+```
+🔹 **How it helps:**  
+- Quickly filters files with "report" in their name.
+- Saves time by avoiding manual searching.
+
+📌 **Use Case:** Monitoring system resources  
+```sh
+ps aux | sort -k3 -nr | head -5
+```
+🔹 **How it helps:**  
+- Finds top 5 CPU-consuming processes.
+- Helps in system performance monitoring.
+
+---
+
+### **2️⃣ In PowerShell (Windows)**
+📌 **Use Case:** Sorting running processes by memory usage  
+```powershell
+Get-Process | Sort-Object WorkingSet -Descending | Select-Object -First 5
+```
+🔹 **How it helps:**  
+- Shows the top 5 memory-consuming processes.
+- Useful for identifying high-resource applications.
+
+📌 **Use Case:** Finding a specific service  
+```powershell
+Get-Service | Where-Object { $_.Status -eq "Running" }
+```
+🔹 **How it helps:**  
+- Filters running services from all available ones.
+
+---
+
+### **3️⃣ In Scripting and Automation**
+✅ **Automates repetitive tasks**  
+✅ **Processes large amounts of data quickly**  
+✅ **Improves system administration workflows**
+
+📌 **Example:** Automatically cleaning up log files  
+```sh
+find /var/log -name "*.log" | xargs rm -f
+```
+🔹 **How it helps:**  
+- Finds and deletes all `.log` files, saving manual effort.
+
+---
+
+### **🔹 Why Is the Pipe Command So Useful?**
+💡 **Efficiency:** No need for temporary files.  
+💡 **Speed:** Processes data in real-time.  
+💡 **Automation:** Helps in writing powerful shell scripts.  
+💡 **Flexibility:** Works across multiple commands and tools.  
+
+#Custom Pipe Command Scripts for Automation
+Here are some practical pipe command examples that can help in different scenarios.:-
+"ANS":-
+### **🔹
+## **1️⃣ Automatically Delete Large Log Files (Linux)**
+📌 **Use Case:** Free up disk space by removing logs larger than 100MB.  
+```sh
+find /var/log -type f -size +100M | xargs rm -f
+```
+🔹 **How it works:**  
+- `find /var/log -type f -size +100M` → Finds files larger than 100MB in `/var/log`.  
+- `xargs rm -f` → Deletes them.  
+✅ **Saves disk space automatically!**  
+
+---
+
+## **2️⃣ Monitor High CPU Usage Processes (Linux)**
+📌 **Use Case:** Find top 5 CPU-consuming processes.  
+```sh
+ps aux | sort -k3 -nr | head -5
+```
+🔹 **How it works:**  
+- `ps aux` → Lists all running processes.  
+- `sort -k3 -nr` → Sorts them by CPU usage.  
+- `head -5` → Shows the top 5 processes.  
+✅ **Useful for performance monitoring!**  
+
+---
+
+## **3️⃣ Find and Kill High Memory Processes (Linux)**
+📌 **Use Case:** Kill processes using more than 500MB of RAM.  
+```sh
+ps aux | awk '$5 > 500000 {print $2}' | xargs kill -9
+```
+🔹 **How it works:**  
+- `ps aux` → Lists all processes.  
+- `awk '$5 > 500000 {print $2}'` → Filters those using more than 500MB RAM and extracts their process ID (PID).  
+- `xargs kill -9` → Force-kills those processes.  
+✅ **Prevents system slowdowns!**  
+
+---
+
+## **4️⃣ Find and Delete Duplicate Files (Linux)**
+📌 **Use Case:** Remove duplicate files with the same name in a directory.  
+```sh
+ls | sort | uniq -d | xargs rm -f
+```
+🔹 **How it works:**  
+- `ls` → Lists files.  
+- `sort` → Sorts filenames.  
+- `uniq -d` → Finds duplicates.  
+- `xargs rm -f` → Deletes them.  
+✅ **Keeps your system clean!**  
+
+---
+
+## **5️⃣ Extract Top 10 Most Frequent Words from a File (Linux)**
+📌 **Use Case:** Find the most common words in `file.txt`.  
+```sh
+cat file.txt | tr -s ' ' '\n' | sort | uniq -c | sort -nr | head -10
+```
+🔹 **How it works:**  
+- `cat file.txt` → Reads file.  
+- `tr -s ' ' '\n'` → Converts spaces to new lines (one word per line).  
+- `sort` → Sorts words.  
+- `uniq -c` → Counts occurrences.  
+- `sort -nr` → Sorts by frequency.  
+- `head -10` → Shows top 10 words.  
+✅ **Useful for text analysis!**  
+
+---
+
+## **6️⃣ Find Active Network Connections (Linux)**
+📌 **Use Case:** Show active network connections.  
+```sh
+netstat -tulnp | grep ESTABLISHED
+```
+🔹 **How it works:**  
+- `netstat -tulnp` → Lists active network connections.  
+- `grep ESTABLISHED` → Filters only active ones.  
+✅ **Great for network monitoring!**  
+
+---
+
+## **7️⃣ Windows PowerShell: List and Kill High CPU Processes**
+📌 **Use Case:** Find and kill processes using more than 50% CPU.  
+```powershell
+Get-Process | Where-Object { $_.CPU -gt 50 } | Stop-Process -Force
+```
+🔹 **How it works:**  
+- `Get-Process` → Gets all processes.  
+- `Where-Object { $_.CPU -gt 50 }` → Filters those using more than 50% CPU.  
+- `Stop-Process -Force` → Kills them.  
+✅ **Boosts system performance!**
+---
 ---
 
 -------------------------------------END-------------------------------------END-------------------------------------END--------------------------------------END----------------------------------
